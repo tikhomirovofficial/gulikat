@@ -1,0 +1,99 @@
+.promo {
+    padding-bottom: 4rem;
+    background: #FAFAFA;
+    .promos {
+        margin-top: 43px;
+        .container {
+            .item {
+                overflow: hidden;
+                max-width: 20rem;
+                transition: 0.3s border;
+                .weight {
+                    font-size: 1.2rem;
+                }
+                .price {
+                    font-size: 1.6rem;
+                    color: #282828;
+
+                    margin-top: 3px;
+                }
+                .image {
+                    height: 17rem;
+                    border-radius: 4px;
+                    overflow: hidden;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: cover;
+                }
+                h3 {
+                    font-size: 1.6rem;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-height: 3.6rem;
+                    overflow-y: hidden;
+                }
+                .info {
+                    h3 {
+                        font-size: 2rem;
+                    }
+                    p {
+                        font-size: 1.4rem;
+                    }
+                    svg {
+                        transition: 0.3s transform;
+                        path {
+                            transition: 0.3s fill;
+                        }
+                    }
+                }
+                // &:hover {
+                //     border: 1px solid #fb634d;
+                //     svg {
+                //         transform: translateX(5px);
+                //         path {
+                //             fill: #fb634d;
+                //         }
+                //     }
+                // }
+            }
+        }
+        .salesArrowLeft {
+            left: -2rem;
+        }
+        .salesArrowRight {
+            right: -2rem;
+        }
+        .arrowWrapper {
+            z-index: 3;
+            .arrow {
+                height: 4rem;
+                width: 4rem;
+                background: white;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+@media (max-width: 450px) {
+    .promo {
+        .promos {
+            .container {
+                
+                .item {
+                    max-width: 16rem;
+                    .image {
+                        height: 12rem;
+                        border-radius: 4px;
+                        overflow: hidden;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: cover;
+                    }
+                }
+            }
+        }
+    }
+}

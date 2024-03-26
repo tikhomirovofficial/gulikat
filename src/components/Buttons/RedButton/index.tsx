@@ -7,7 +7,7 @@ const RedButton: FC<HasChildrenProps & HasClassName & ButtonProps> = ({ children
     const gTheme = useTheme();
 
     return (
-        <button disabled={disabled} onClick={onClick} className={`${className} ${gTheme(`${disabled ? "lt-disabled-lt-bg" : "lt-active-bg"} ${disabled ? "lt-gray-c" : "c-black"}`, "dk-dark-gray-c dk-active-bg")} f-c-col ${styles.button} ${styles.buttonDark}`}>{children}</button>
+        <button disabled={disabled} onClick={onClick} className={`${className} ${gTheme(`${disabled ? "lt-disabled-lt-bg" : "lt-active-bg"} ${disabled ? "lt-gray-c" : "c-white"}`, "dk-dark-gray-c dk-active-bg")} f-c-col ${styles.button} ${styles.buttonDark}`}>{children}</button>
     );
 };
 

@@ -74,7 +74,7 @@ const Product: FC<N_ProductProps & HasClassName> = (props) => {
             className={`${styles.product} cur-pointer h-100p f-column-betw gap-15`}>
             <div className="f-column ">
                 <div className={`${styles.img} w-100p`}>
-                    <img src={domain + "/" + props.image} />
+                    <img src={domain  + props.image} />
                     {/* {
                         props.is_product_day ? <div className={`d-f al-center gap-5 ${gTheme("lt-active-bg", "dk-active-bg")} ${styles.productLabel}`}>
                             <StarsIcon />

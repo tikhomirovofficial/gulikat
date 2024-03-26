@@ -43,13 +43,13 @@ const Header = () => {
                         <SelectCity/>
                     </div>
 
-                    <nav className={"d-f gap-20 f-1"}>
-                        <Link className={`${styles.item} ${gTheme("lt-header-nav", "dk-header-nav")} f-c-col p-rel`} to={"/empty"}>
+                    <nav className={"d-f jc-center gap-20 f-1"}>
+                        {/* <Link className={`${styles.item} ${gTheme("lt-header-nav", "dk-header-nav")} f-c-col p-rel`} to={"/empty"}>
                             <div className={`${styles.text} ${gTheme("c-black", "c-white")} w-100p h-100p p-abs left-0`}>
                                 О нас
                             </div>
                             <div className="hidden">О нас</div>
-                        </Link>
+                        </Link> */}
                         <Link className={`${styles.item} f-c-col p-rel ${gTheme("lt-header-nav", "dk-header-nav")}`} to={"/"}>
                             <div className={`${styles.text } ${gTheme("c-black", "c-white")} w-100p h-100p p-abs left-0`}>
                                 Каталог
@@ -62,7 +62,19 @@ const Header = () => {
                             </div>
                             <div className="hidden">Контакты</div>
                         </Link>
-                        <Link className={`${styles.item} f-c-col p-rel ${gTheme("lt-header-nav", "dk-header-nav")}`} to={"/empty"}>
+                        <Link className={`${styles.item} f-c-col p-rel ${gTheme("lt-header-nav", "dk-header-nav")}`} to={"/public-selling"}>
+                            <div className={`${styles.text} ${gTheme("c-black", "c-white")} w-100p h-100p p-abs left-0`}>
+                                Публичная оферта
+                            </div>
+                            <div className="hidden">Публичная оферта</div>
+                        </Link>
+                        <Link className={`${styles.item} f-c-col p-rel ${gTheme("lt-header-nav", "dk-header-nav")}`} to={"/user-document"}>
+                            <div className={`${styles.text} ${gTheme("c-black", "c-white")} w-100p h-100p p-abs left-0`}>
+                                Пользовательское соглашение
+                            </div>
+                            <div className="hidden">Пользовательское соглашение</div>
+                        </Link>
+                        {/* <Link className={`${styles.item} f-c-col p-rel ${gTheme("lt-header-nav", "dk-header-nav")}`} to={"/empty"}>
                             <div className={`${styles.text} ${gTheme("c-black", "c-white")} w-100p h-100p p-abs left-0`}>
                                 Вакансии
                             </div>
@@ -91,7 +103,7 @@ const Header = () => {
                                 Помощь
                             </div>
                             <div className="hidden">Помощь</div>
-                        </Link>
+                        </Link>  */}
 
                     </nav>
 

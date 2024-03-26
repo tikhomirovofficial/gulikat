@@ -34,19 +34,19 @@ const Footer = () => {
                             <Link className={styles.navItem} to={"/empty"}>В Креветочная</Link>
                             <Link className={styles.navItem} to={"/empty"}>В Гулибули</Link>
                         </div>
-                        <div className={`${styles.navColumn} f-column gap-10`}>
+                        {/* <div className={`${styles.navColumn} f-column gap-10`}>
                             <b className={styles.navItem}>Партнёрам</b>
                             <Link className={styles.navItem} to={"/empty"}>Инвестиции</Link>
                             <Link className={styles.navItem} to={"/empty"}>Поставщикам</Link>
                             <Link className={styles.navItem} to={"/empty"}>Предложить помещение</Link>
-                        </div>
+                        </div> */}
                         <div className={`${styles.navColumn} f-column gap-10`}>
                             <b className={styles.navItem}>Документы</b>
-                            <Link className={styles.navItem} to={"/empty"}>Политика конфиденциальности</Link>
+                            {/* <Link className={styles.navItem} to={"/empty"}>Политика конфиденциальности</Link> */}
                             <Link className={styles.navItem} to={"/public-selling"}>Публичная оферта</Link>
                             <Link className={styles.navItem} to={"/user-document"}>Пользовательское соглашение</Link>
-                            <Link className={styles.navItem} to={"/empty"}>Соглашение на обработку ПД</Link>
-                            <Link className={styles.navItem} to={"/empty"}>Правила программы лояльности</Link>
+                            {/* <Link className={styles.navItem} to={"/empty"}>Соглашение на обработку ПД</Link>
+                            <Link className={styles.navItem} to={"/empty"}>Правила программы лояльности</Link> */}
                         </div>
                         <div className={`${styles.navColumn} ${styles.navColumnContacts} f-column gap-10`}>
                             <b className={styles.navItem}>Контакты</b>
@@ -59,7 +59,7 @@ const Footer = () => {
                             </div>
                         </div>
                     </nav>
-                    <div className="f-row-betw flex-wrap gap-20">
+                    {/* <div className="f-row-betw flex-wrap gap-20">
                         <div className={styles.copyright}>
                             <p> © {new Date().getFullYear()} ООО «ГМ ГРУПП»</p>
                             <p>ОГРН 1228600002025, ИНН 8606018000</p>
@@ -72,7 +72,7 @@ const Footer = () => {
                             </a>
 
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </footer>

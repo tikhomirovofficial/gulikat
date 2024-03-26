@@ -97,7 +97,7 @@ type MainSliceState = {
 }
 const initialState: MainSliceState = {
     market: getFromStorage('market') || -1,
-    lightAppColor: "#9A9A9A",
+    lightAppColor: "#ff6262",
     baseAddress: -1,
     addressFrom: -1,
     addressFromLoading: false,

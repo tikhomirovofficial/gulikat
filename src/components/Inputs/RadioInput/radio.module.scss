@@ -3,12 +3,12 @@
   gap: 7px;
 
   .marker {
-    min-height: 1.84rem;
-    min-width: 1.84rem;
-    max-height: 1.84rem;
-    max-width: 1.84rem;
+    min-height: 1.9rem;
+    min-width: 1.9rem;
+    max-height: 1.9rem;
+    max-width: 1.9rem;
     border-radius: 50%;
-    border: 2px solid #4D4D4D;
+    border: 2px solid #ff6262 ;
     transition: .3s border, .3s border-stroke;
 
   }
@@ -16,6 +16,7 @@
   .selectedCircle {
     height: 1rem;
     width: 1rem;
+    background: #ff6262 ;
     border-radius: 50%;
   }
 

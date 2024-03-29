@@ -9,10 +9,12 @@ import useAppColor from '../../hooks/useAppColor';
 
 const CartWidget = () => {
     const dispatch = useAppDispatch()
-    const { items } = useAppSelector(state => state.cart)
     const gTheme = useTheme()
     const appColor = useAppColor()
+
+    const { items } = useAppSelector(state => state.cart)
     const { phone } = useAppSelector(state => state.main)
+
     const totalCount = useMemo(() => {
         return items.reduce((prev, cur) => {
             return prev + (cur?.count !== undefined ? cur.count : 0)
@@ -37,7 +39,7 @@ const CartWidget = () => {
                             0.11565 19.753L1.14085 11.4934C1.76539 8.54619 3.53297 7.33333 5.21806 7.33333H5.42624ZM7.34239 7.33333C7.3795 7.23726 7.39916 7.13537 7.40045 7.03243C7.40045 4.47577 9.48019 2.40318 12.0457 2.40318C14.6111 2.40318 16.6909 4.47577 16.6909 7.03243C16.6733 7.13197 16.6733 7.2338 16.6909 7.33333H7.34239ZM15.8711 14.1981C16.5219 
                             14.1981 17.0495 13.6551 17.0495 12.9852C17.0495 12.3154 16.5219 11.7724 15.8711 11.7724C15.2203 11.7724 14.6927 12.3154 14.6927 12.9852C14.6927 13.6551 15.2203 14.1981 15.8711 14.1981ZM9.33073 12.9852C9.33073 13.6551 8.80315 14.1981 8.15234 14.1981C7.50154 14.1981 6.97396 13.6551 6.97396 12.9852C6.97396 12.3154 7.50154 11.7724 8.15234 11.7724C8.80315 11.7724 9.33073 12.3154 9.33073 12.9852Z" fill={appColor} />
                         </svg>
-                        <div className={`${styles.count} c-white ${gTheme("lt-active-normal-bg", "dk-active-bg")} f-c-col p-abs`}>
+                        <div className={`${styles.count} c-white ${gTheme("lt-active-bg", "dk-active-bg")} f-c-col p-abs`}>
                             {totalCount}
                         </div>
                     </div> : null

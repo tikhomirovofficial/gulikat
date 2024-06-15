@@ -145,7 +145,6 @@ const initialState: MainSliceState = {
         description: "",
         title: ""
     },
-
     orderDetails: {
         delivery_type: 0, price: 0
     },

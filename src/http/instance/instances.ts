@@ -10,7 +10,8 @@ const domains = [
     "http://vps.advafert.ru:5000",
     "https://api.client.advafert.ru",
     "https://api.gulyakin.com",
-    "https://api.gulikat.ru" 
+    "https://api.gulikat.ru",
+    "http://95.53.245.74:8000" 
 ]
 
 export const domain = domains[currentDomain]

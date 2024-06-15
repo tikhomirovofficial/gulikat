@@ -400,7 +400,7 @@ const Order = () => {
                     className={`${styles.orderSuccessBtn} pd-10 w-100p`}>Принять</RedButton>}
                 closeHandle={closeSuccess}
                 isOpened={success}
-                title={"Успешно заказано!"} />
+                title={"Заказ создан!"} />
         </>
     );
 };

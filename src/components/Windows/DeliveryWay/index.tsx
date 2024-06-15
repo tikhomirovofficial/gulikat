@@ -306,9 +306,8 @@ const PickupVariant: FC<DeliveryWayCommonProps> = ({ addToCartWithAfterClose, ha
 const DeliveryWay = () => {
     const dispatch = useAppDispatch()
     const handleAddedPopup = useCartAdd()
-
     const { variant } = useAppSelector(state => state.modals.deliveryWay)
-    const { addresses, isPhone, market, cityAddresses, pickupAddresses, canOrder } = useAppSelector(state => state.main)
+    const { addresses, isPhone, market, cityAddresses, pickupAddresses, canOrder, addressFrom } = useAppSelector(state => state.main)
     const profileAddresses = useAppSelector(state => state.profile.addresses)
     const { selectedInPickup, selectedInDelivery } = useAppSelector(state => state.restaurants)
     const [currentAddress, setCurrentAddress] = useState<AddressByCityItem | null>(null)
@@ -365,6 +364,17 @@ const DeliveryWay = () => {
     const products = useAppSelector(state => state.products)
 
     const addToCartWithClose = () => {
+        if (addProductAfterAddress !== null) {
+            const matchedProduct = products.items.filter(item => item.id == addProductAfterAddress.id)[0]
+            if (matchedProduct?.id !== undefined) {
+                dispatch(addToCart({
+                    products_id: matchedProduct.id,
+                    adress_id: addressFrom,
+                    count: 1
+                }))
+                handleAddedPopup(matchedProduct.title, matchedProduct.weight)
+            }
+        }
         // if (addProductAfterAddress !== null) {
         //     if (!addProductAfterAddress.is_combo) {
         //         const matchedProduct = products.items.filter(item => item.id == addProductAfterAddress.id)[0]

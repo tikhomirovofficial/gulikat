@@ -69,10 +69,12 @@ const Profile = () => {
     }
     
     const handleLogout = () => {
+        navigate("/")
         deleteCookie("tokens")
         dispatch(resetDeliveryData())
         resetOrderForm()
-        window.location.href = "/"
+        //window.location.reload()
+        
     }
 
     useEffect(() => {

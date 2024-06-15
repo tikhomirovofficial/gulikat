@@ -177,6 +177,7 @@ export const ProfileSlice = createSlice({
         builder.addCase(editUser.fulfilled, (state, action) => {
             state.error = ""
             state.isLoading = false
+            window.location.hash = ""
 
         })
         builder.addCase(getHistoryOrders.fulfilled, (state, action) => {

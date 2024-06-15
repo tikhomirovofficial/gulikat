@@ -69,17 +69,12 @@ const initialState: ModalSliceState = {
         storeg_temperature: "",
         discount_price: 0,
         discount_procent: 0,
-        // currentAdditive: 0,
-        // additives: [
-        // ],
 
     },
     addressSuccess: {
         opened: false,
         title: "Адрес успешно выбран!"
     }
-
-
 }
 
 export const ModalsSlice = createSlice({
@@ -155,7 +150,6 @@ export const ModalsSlice = createSlice({
                 title: action.payload
             }
         }
-
     }
 })
 

@@ -350,11 +350,11 @@ export const formsSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(sendOrder.fulfilled, (state, action) => {
             const redirectHref = action.payload.data.payment_url
-            if (redirectHref !== undefined) {
-                resetOrderForm()
-                window.location.href = action.payload.data.payment_url
-                return;
-            }
+            // if (redirectHref !== undefined) {
+            //     resetOrderForm()
+            //     window.location.href = action.payload.data.payment_url
+            //     return;
+            // }
             state.orderForm = {
                 ...state.orderForm,
                 addressId: -1,

@@ -27,13 +27,13 @@ const HistoryItem: FC<OrderItemApi> = (props) => {
     return (
         <div onClick={openOrderDetails} className={`pd-10 cur-pointer  ${gTheme("lt-orderItemBg", "dk-orderItemBg")} ${styles.orderItem}`}>
             <div className="f-column gap-5">
-                <div className="f-row-betw">
+                <div className="f-row-betw gap-10">
                     <div className="f-column">
                         <div className="left d-f al-center gap-10">
                             <div className={`${styles.imgBlock} p-rel`}>
                                 <div style={{ backgroundImage: `url(${productImage})` }} className={`${styles.imgItem}`}></div>
                             </div>
-                            <div className="f-column-betw al-start">
+                            <div className="f-column-betw al-start" >
                                 <div className={`${styles.orderInfoTop} ${gTheme("lt-orderInfoTop-c", "dk-orderInfoTop-c")} d-f jc-end`}>
                                     <p>Заказ</p>
                                     <b>№{props.id}</b>

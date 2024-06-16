@@ -8,7 +8,7 @@
   }
   .logoutBtn {
     font-size: 1.4rem;
-    padding: .5rem 2.7rem;
+    padding: 0.5rem 2.7rem;
   }
   .addressesBlock {
     max-width: 34rem;
@@ -21,7 +21,9 @@
       }
       svg {
         path {
-          transition: .3s fill, .3s transform
+          transition:
+            0.3s fill,
+            0.3s transform;
         }
       }
       svg:hover {
@@ -30,8 +32,6 @@
         }
       }
     }
-
-
   }
   .addressesEmptyText {
     font-size: 1.4rem;
@@ -46,10 +46,14 @@
 }
 .toMenuBtn {
   max-width: 11.6rem;
-  padding: .3rem 1.6rem;
+  padding: 0.3rem 1.6rem;
 }
 .textHistory {
-  font-size:1.4rem;
+  font-size: 1.4rem;
+}
+.orders {
+  flex: 0.5;
+  min-width: 35rem;
 }
 .orderItem {
   border-radius: 4px;
@@ -66,7 +70,7 @@
   }
   .orderInfoTop {
     font-size: 1.2rem;
-    gap: 3px
+    gap: 3px;
   }
   .paymentBtn {
     font-size: 1.4rem;
@@ -80,10 +84,15 @@
   }
   .orderInfoBottom {
     font-size: 1.6rem;
-    gap: 5px
+    gap: 5px;
   }
 }
 @media (max-width: 430px) {
+  .orders {
+    flex: unset;
+    min-width: unset;
+    width: 90%;
+  }
   .orderItem {
     .orderInfoBottom {
       flex-direction: column;
@@ -100,5 +109,4 @@
       max-width: 80vw;
     }
   }
-
 }

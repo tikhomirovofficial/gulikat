@@ -1,56 +1,38 @@
 import React, { FC } from 'react';
-import { CartProductItem } from "../../../types/api/api.types";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
     handleProductAdditives,
     setChangingAdditivesMode,
-    setProductAdditivesData
 } from "../../../features/modals/modalsSlice";
 import styles from "../cart.module.scss";
 import { domain } from "../../../http/instance/instances";
-import { addProduct, addToCart, editCountCart, removeFromCart, removeProduct } from "../../../features/cart/cartSlice";
+import { removeFromCart, removeProduct } from "../../../features/cart/cartSlice";
 import { MiniClose, MinusIcon, PlusIcon } from "../../../icons";
 import { formatNumberWithSpaces } from "../../../utils/common/numberWithSpaces";
 import useTheme from '../../../hooks/useTheme';
 import useProduct from '../../../hooks/useProduct';
 import { N_CartProduct } from '../../../types/api/cart.api.types';
 
-type CartItemProps = {
-    canNotBeAdded?: boolean,
-    canBeChanged?: boolean,
-    is_combo?: boolean
-} & CartProductItem
 
 const CartItem: FC<N_CartProduct> = (props) => {
     const dispatch = useAppDispatch()
     const gTheme = useTheme()
-    const { items, combos } = useAppSelector(state => state.products)
-    const { handleCurrentProduct, inCart, hasDiscount, handleMinusProduct, handlePlusProduct } = useProduct(props.product.id, [])
+    const { hasDiscount, handleCurrentProduct, handleMinusProduct, handlePlusProduct } = useProduct(props.product.id, [])
     const { addressFrom } = useAppSelector(state => state.main)
 
     const handleChange = () => {
         dispatch(setChangingAdditivesMode(true))
         if (!props.is_combo) {
-            //const findedProduct = items.filter(item => product !== undefined ? item.id === product.id : null)[0]
             handleCurrentProduct()
             return;
         }
-        //const findedCombo = combos.filter(item => item.id === product.id)[0]
         handleCurrentProduct()
         dispatch(handleProductAdditives())
 
     }
 
-    // const supplementsPrice = props.supplements.length > 0 ? supplements.reduce((a, b) => {
-    //     return a + b.price
-    // }, 0) : 0
-
     const getCanBeChanged = () => {
         if (props.product !== undefined) {
-            // if (!is_combo) {
-            //     return items.some(item => item?.supplements.length > 0 && item.id === product.id)
-            // }
-            // return true
             return props.is_combo
         }
         return null
@@ -59,6 +41,7 @@ const CartItem: FC<N_CartProduct> = (props) => {
     const canBeChanged = getCanBeChanged()
 
     const { isDarkTheme } = useAppSelector(state => state.main)
+
     return (
         props.product !== undefined ?
             <div className={`${styles.cartItem} ${gTheme("lt-cartItem", "dk-cartItem")} ${canNotBeAdded ? styles.cartItemDisabled : ""} pd-15 bg-white `}>
@@ -66,18 +49,10 @@ const CartItem: FC<N_CartProduct> = (props) => {
                     <div className={styles.imageBlock}>
                         <img src={`${domain}${props.product.image}`} alt="" />
                     </div>
-                    {/* <div style={{ backgroundImage: `url("${domain}${product.image}")` }}
-                        className={`${styles.image} bg-cover`}></div> */}
                     <div className="text f-column gap-5 f-1 al-self-center">
                         <div className={"f-column gap-5"}>
                             <b>{props.product.title}</b>
                             <p>{props.product.description}</p>
-                            {/* {
-                                supplements.length > 0 ?
-                                    <p>+ {supplements.map(item => item.title).join(", ")}</p>
-                                    : null
-                            } */}
-
                         </div>
                         {
                             canNotBeAdded ?
@@ -95,7 +70,6 @@ const CartItem: FC<N_CartProduct> = (props) => {
                             <MiniClose />
                         </div>
                     </div>
-
                 </div>
                 <div className={`${styles.itemBottom} f-row-betw`}>
                     {
@@ -137,7 +111,6 @@ const CartItem: FC<N_CartProduct> = (props) => {
                                 </div>
                             </div>
                     }
-
                 </div>
             </div> : null
     )

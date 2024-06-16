@@ -1,8 +1,6 @@
 import Main from "../pages/Main";
-import {RoutesList} from "../types/router.types";
+import { RoutesList } from "../types/router.types";
 import Login from "../pages/Login";
-import Restaurants from "../pages/Restaurants";
-import ChosenRestaurant from "../pages/ChosenRestaurant";
 import Profile from "../pages/Profile";
 import Order from "../pages/Order";
 import PublicSelling from "../pages/Documents/PublicSelling";
@@ -22,14 +20,6 @@ export const routes: RoutesCollection = {
             Component: Main,
             path: "/"
         },
-        // {
-        //     Component: Restaurants,
-        //     path: "/restaurants"
-        // },
-        // {
-        //     Component: ChosenRestaurant,
-        //     path: "/restaurants/:id"
-        // },
         {
             Component: PublicSelling,
             path: "/public-selling"
@@ -42,9 +32,6 @@ export const routes: RoutesCollection = {
             Component: Empty,
             path: "/empty"
         }
-
-
-
     ],
     auth: [
         {

@@ -29,14 +29,12 @@ import { useInput } from "../../hooks/useInput";
 import SuccessWindow from "../../components/Windows/SuccessWindow";
 import { Link } from "react-router-dom";
 import OrderItem from "../../components/OrderItem";
-import useOrderDetails from "../../hooks/useOrderDetails";
 import useOrderAddress from "../../hooks/useOrderAddress";
 import useOrderDisabled from "../../hooks/useOrderDisabled";
 import useIsWorkTime from "../../hooks/useIsWorkTime";
 import useTheme from '../../hooks/useTheme';
 import useActualPrice from '../../hooks/useActualPrice';
-import { count } from 'console';
-import useAppColor from '../../hooks/useAppColor';
+
 import { N_OrderCreateRequest } from '../../types/api/order.api.types';
 
 
@@ -44,8 +42,7 @@ const Order = () => {
     const dispatch = useAppDispatch()
     const gTheme = useTheme()
     const { data, addresses } = useAppSelector(state => state.profile)
-    const { orderDetails, pickupAddresses, orderWarning, workTimes, deliveryAddress, isDarkTheme, currentGeo, addressFrom } = useAppSelector(state => state.main)
-    const [changeSum, setChangeSum, setStateSum] = useInput("")
+    const { orderDetails, pickupAddresses, orderWarning, workTimes, isDarkTheme, currentGeo, addressFrom } = useAppSelector(state => state.main)
     const cart = useAppSelector(state => state.cart)
     const actualPrice = useActualPrice()
     const hasDiscount = cart.totalDiscountPrice !== cart.totalPrice
@@ -67,10 +64,8 @@ const Order = () => {
         handleChangeDeliveryType,
         getCurrentPickupAddress,
     } = useOrderAddress()
-    //console.log(workTimes);
 
-    const { orderTimes, isCurrent } = useIsWorkTime({ ...workTimes, is_around_time: workTimes.isAroundTime })
-    //console.log(orderTimes);
+    const { isCurrent } = useIsWorkTime({ ...workTimes, is_around_time: workTimes.isAroundTime })
 
     const addressFromStorage = getFromStorage('order_form')?.addressId
 
@@ -83,18 +78,12 @@ const Order = () => {
         if (error.length) {
             setOrderError("")
         }
-        const paymentTypeOrder = paymentWay == "CARD" ? 1 : 2
-        const timeDeliveryOrder = time == "FAST" ? "Ближайшее" : time
-        const deliveryTypeOrder = isPickup ? 3 : orderDetails.delivery_type
-        const changeWith = paymentWay == "CASH" ? Number(changeSum) : undefined
-        const userAddressId = !isPickup ? addressId : undefined
 
         const req: N_OrderCreateRequest = {
             user_adress_id: addressId,
             is_call: callNeeded,
             adress_id: addressFrom,
             siti_id: currentGeo.city,
-            //time: timeDeliveryOrder
         }
 
         dispatch(sendOrder(req))
@@ -111,9 +100,6 @@ const Order = () => {
     const { orderDisabled } = useOrderDisabled({
         isCurrentWorkTime: isCurrent,
     })
-
-    const appColor = useAppColor()
-    useOrderDetails()
 
     return (
         <>
@@ -211,33 +197,9 @@ const Order = () => {
                                         </div>
                                         <b onClick={handleChangeDeliveryType}
                                             className={`${styles.wayOrderBtn} d-f ${gTheme("lt-active-c", "dk-active-c")} cur-pointer`}>
-                                            {/* {isPickup ? "Выбрать доставку" : "Выбрать самовывоз"} */}
                                         </b>
                                     </div>
                                     <div className={`f-column gap-20 ${styles.orderOptions}`}>
-                                        {/* {
-                                            isCurrent ? <div className={`${styles.timeOrder} f-column gap-10`}>
-                                                <p className={gTheme("lt-c", "dk-c")}>Время</p>
-                                                <div className={`${styles.timeOrderItems} gap-10 f-column w-100p`}>
-                                                    <div className="d-f jc-between gap-10">
-                                                        <div
-                                                            onClick={() => dispatch(handleOrderTime("FAST"))}
-                                                            className={`${styles.inputSelectable} ${time === "FAST" ? gTheme("lt-whiteSelectableSelected", "dk-whiteSelectableSelected") : ""} f-1 whiteSelectable txt-center p-rel ${gTheme("lt-whiteSelectable", "dk-whiteSelectable")}`}>
-                                                            <p>Ближайшее</p>
-                                                        </div>
-                                                        <SelectInput placeholder={"Другое время"} iconMiniArrow={{
-                                                            height: 10,
-                                                            width: 10
-                                                        }} classDropDown={styles.orderSelect}
-                                                            classDropDownWrapper={`miniScrollBar ${styles.orderDropdownWrapper}`}
-                                                            classNameBlock={`${styles.inputSelectable} ${styles.timeSelect} ${time !== "FAST" ? gTheme("lt-whiteSelectableSelected", "dk-whiteSelectableSelected") : ""} whiteSelectable gap-5 f-1  ${gTheme("lt-whiteSelectable", "dk-whiteSelectable")}`}
-                                                            selectHandler={(selected) => {
-                                                                dispatch(handleOrderTime(orderTimes[selected]))
-                                                            }} items={orderTimes} />
-                                                    </div>
-                                                </div>
-                                            </div> : null
-                                        } */}
                                         <div className="f-column gap-20">
                                             <RadioInput selected={callNeeded} text={
                                                 <p className={` ${gTheme("lt-coal-c", "dk-gray-c")}`}><b>Требуется</b> звонок оператора</p>
@@ -250,21 +212,8 @@ const Order = () => {
                                                 dispatch(handleOrderCallNeeded())
                                             }} />
                                         </div>
-                                        {/* <div className={`${styles.timeOrder} f-column gap-10`}>
-                                            <p className={gTheme("lt-c", "dk-c")}>Количество приборов</p>
-                                            <div className={"d-f al-center gap-5"}>
-                                                <div onClick={toolsCount > 1 ? () => dispatch(minusToolsCount()) : undefined} className={"cur-pointer f-c-col pd-10-0"}><MinusIcon fill={appColor} />
-                                                </div>
-                                                <div className={`${styles.toolsCount} txt-center ${gTheme("lt-light-coal-c", "dk-lg-c")}`}>{toolsCount}</div>
-                                                <div onClick={toolsCount < 10 ? () => dispatch(addToolsCount()) : undefined} className={"cur-pointer f-c-col"}><PlusIcon fill={appColor} /></div>
-
-                                            </div>
-                                        </div> */}
                                     </div>
-
                                 </div>
-
-
                             </div>
                             <div className={`${styles.leftContent} orderBottom f-column gap-40`}>
                                 <div className="f-column gap-20 paymentWay">
@@ -278,32 +227,15 @@ const Order = () => {
                                             <PaymentCard stroke={isDarkTheme ? "#c3c3c3" : "#434343"} />
                                             <p>Картой онлайн</p>
                                         </div>
-                                        {/* <div
+                                        <div
                                             onClick={() => {
                                                 dispatch(handleOrderPaymentWay("CASH"))
                                             }}
                                             className={`${styles.inputSelectable} ${paymentWay == "CASH" ? gTheme("lt-whiteSelectableSelected", "dk-whiteSelectableSelected") : ""} d-f al-center gap-5 whiteSelectable  ${gTheme("lt-whiteSelectable", "dk-whiteSelectable")}`}>
                                             <PaymentCash stroke={isDarkTheme ? "#c3c3c3" : "#434343"} />
                                             <p>Наличными</p>
-                                        </div> */}
+                                        </div>
                                     </div>
-                                    {/* {
-                                        paymentWay == "CASH" ?
-                                            <InputWrapper
-                                                className={styles.inputField}
-                                                postFix={"₽"}
-                                                inputType={"number"}
-                                                inputId={"changeWith"}
-                                                grayBorderedClassName={`${styles.inputField} ${styles.inputChangeWith}`}
-                                                setVal={(val) => setStateSum(val)}
-                                                changeVal={(sum) => setChangeSum(sum)}
-                                                inputVal={changeSum} placeholder={"1000"}
-                                                inputClassName={styles.diffCashInput}
-                                                labelText={
-                                                    "Сдача с"
-                                                } />
-                                            : null
-                                    } */}
                                 </div>
                                 <div className="f-column gap-15">
                                     <div className="f-column gap-5">
@@ -317,16 +249,11 @@ const Order = () => {
                                             className={`pd-15 ${styles.createOrderBtn}`}>Оформить заказ
                                             на {formatNumberWithSpaces(actualPrice + orderDetails.price)} ₽</RedButton>
                                     </div>
-
                                     <div className={"w-100p d-f jc-center"}>
-
                                         <Link to={"/"} className={`${styles.backCart}`}>Вернуться в меню</Link>
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
                         <div className="compositionBlock f-07 ">
                             <div className={`${styles.compositionOrder} bg-white f-column gap-20`}>

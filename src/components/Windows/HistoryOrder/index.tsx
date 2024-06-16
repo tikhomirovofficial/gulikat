@@ -7,7 +7,6 @@ import OrderItem from "../../OrderItem";
 import { formatNumberWithSpaces } from "../../../utils/common/numberWithSpaces";
 import Preloader from "../../Preloader";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { getOrderStatus } from "../../../utils/orders/getOrderStatus";
 import { handleHistoryOrder } from "../../../features/modals/modalsSlice";
 import RedButton from "../../Buttons/RedButton";
 import { addZerosDate } from "../../../utils/datetime/addZerosDate";
@@ -39,14 +38,6 @@ const HistoryOrderWindow = () => {
                                     <p>Сумма заказа:</p>
                                     <b>{formatNumberWithSpaces(~~(data.price))} ₽</b>
                                 </div>
-                                {/* <div className={`${styles.status} f-column al-end`}>
-                                    <p>Доставка:</p>
-                                    {
-                                        data.is_delivery ? <b>{formatNumberWithSpaces(~~(data.delivery_price))} ₽</b> :
-                                            <b>Самовывоз</b>
-                                    }
-
-                                </div> */}
                             </div>
                             {
                                 !data.is_payment ?

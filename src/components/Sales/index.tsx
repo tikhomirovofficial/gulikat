@@ -1,8 +1,5 @@
 import React, { useRef, useState } from 'react';
 import styles from "./sales.module.scss";
-import { Link } from "react-router-dom";
-import { getImgPath } from "../../utils/common/getAssetsPath";
-import { ArrowRight, SafeArrowIcon } from "../../icons";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -14,17 +11,9 @@ import { SaleItem } from './SaleItem';
 
 const Sales = () => {
     const salesSliderRef = useRef<SwiperProps>(null)
-    const gTheme = useTheme()
-    
-    const { salesProductsLoading, sales_products } = useAppSelector(state => state.products)
-    const [currentSlide, setCurrentSlide] = useState<number>(0)
-    const handleNext = () => {
-        salesSliderRef.current.swiper.slideNext();
-    }
 
-    const handlePrev = () => {
-        salesSliderRef.current.swiper.slidePrev();
-    }
+    const { sales_products } = useAppSelector(state => state.products)
+    const [currentSlide, setCurrentSlide] = useState<number>(0)
 
 
     return (
@@ -42,35 +31,13 @@ const Sales = () => {
                             {
                                 sales_products.map(item => (
                                     <SwiperSlide className={styles.item}>
-                                        <SaleItem key={item.id} {...item}/>
+                                        <SaleItem key={item.id} {...item} />
                                     </SwiperSlide>
                                 ))
                             }
-
-
-
                         </Swiper>
-                        {/* <div
-                            className={`${styles.arrowWrapper} ${styles.salesArrowRight}  promosArrowWrapper h-100p f-c-col p-abs right-0 top-0`}>
-                            <div onClick={handleNext} className={`${styles.arrow} f-c-col`}>
-                                <div className={`w-content h-content`}>
-                                    <SafeArrowIcon width={7} />
-                                </div>
-
-                            </div>
-                        </div>
-                        <div
-                            className={`${styles.arrowWrapper}   ${styles.salesArrowLeft}  promosArrowWrapper h-100p f-c-col p-abs left-0 top-0`}>
-                            <div onClick={handlePrev} className={`${styles.arrow} f-c-col`}>
-                                <div style={{ transform: `rotateZ(180deg)`, marginTop: -3 }} className={`w-content h-content`}>
-                                    <SafeArrowIcon width={7} />
-                                </div>
-
-                            </div>
-                        </div> */}
                     </div>
                 </div>
-
             </div>
         </div>
     );

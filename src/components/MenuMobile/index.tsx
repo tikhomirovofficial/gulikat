@@ -11,8 +11,9 @@ import { formatPhoneNumber } from '../../utils/forms/formatePhone';
 const MenuMobile = () => {
     const dispatch = useAppDispatch()
     const { mobileMenu } = useAppSelector(state => state.modals)
-    const { phone, isDarkTheme } = useAppSelector(state => state.main)
+    const { phone } = useAppSelector(state => state.main)
     const token = useToken()
+
     const handleClose = () => {
         dispatch(setMobileMenu(false))
     }
@@ -65,30 +66,16 @@ const MenuMobile = () => {
                 </div>
 
                 <div className="wrapper w-100p h-100p">
-                    <div className="f-column jc-between h-100p gap-10 pd-20-0">
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/"}>
-                            О нас
-                        </Link>
+                    <div className="f-column h-100p gap-20 pd-20-0">
+
                         <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/"}>
                             Каталог
                         </Link>
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/"}>
-                            Контакты
+                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/public-selling"}>
+                            Публичная оферта
                         </Link>
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/empty"}>
-                            Вакансии
-                        </Link>
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/empty"}>
-                            Инвестиции
-                        </Link>
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/empty"}>
-                            Предложить помещение
-                        </Link>
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/empty"}>
-                            Поставщикам
-                        </Link>
-                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/empty"}>
-                            Помощь
+                        <Link onClick={handleClose} className={`${styles.navItem} f-c-col p-rel`} to={"/user-document"}>
+                            Пользовательско соглашение
                         </Link>
                     </div>
                 </div>
@@ -99,11 +86,11 @@ const MenuMobile = () => {
                     <div className="f-column gap-20">
                         <div className="f-column gap-10">
                             <b>Контакты</b>
-                            <a href="mailto:gm.group@internet.ru">gm.group@internet.ru</a>
+                            <a href="mailto:artem.tikhomirov22gmail.com">artem.tikhomirov22gmail.com</a>
                             <a href={`tel:${phone}`}>{formatPhoneNumber(phone)}</a>
                         </div>
                         <div className={`d-f gap-10`}>
-                            <a target={"_blank"} href="https://vk.com/gulyakin86" className={`f-c-col ${styles.socialItem}`}>
+                            <a target={"_blank"} href="#" className={`f-c-col ${styles.socialItem}`}>
                                 <VkIcon />
                             </a>
                         </div>

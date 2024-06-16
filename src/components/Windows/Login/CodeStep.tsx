@@ -13,12 +13,8 @@ import { Preloader } from "../../../icons";
 import RedButton from "../../Buttons/RedButton";
 import { LoginContext, LoginContextType } from "./index";
 import {
-    addToCart,
-    addToCartCombo,
     setProductAfterAddress,
-    setProductAfterLogin
 } from "../../../features/cart/cartSlice";
-import useCartAdd from "../../../hooks/useCartAdd";
 import useTheme from "../../../hooks/useTheme";
 
 const LoginCodeStep = () => {
@@ -46,7 +42,6 @@ const LoginCodeStep = () => {
     const products = useAppSelector(state => state.products)
     const dispatch = useAppDispatch()
     const gTheme = useTheme()
-    const handleAddedPopup = useCartAdd()
 
     const handleSendPhone = async () => {
         try {
@@ -118,42 +113,6 @@ const LoginCodeStep = () => {
                     if (productAfterLogin !== null) {
                         dispatch(setProductAfterAddress(productAfterLogin))
                         dispatch(handleYourAddress())
-                        // if(!productAfterLogin.is_combo) {
-                        //     const matchedProduct = products.items.filter(item => item.id == productAfterLogin.id)[0]
-                        //     if (matchedProduct?.id !== undefined) {
-                        //         const addProductSups = productAfterLogin.supplements
-                        //         const addProductSupsDefined = addProductSups !== undefined
-                        //         dispatch(addToCart({
-                        //             ...matchedProduct,
-                        //             supplements: addProductSupsDefined ? addProductSups?.map(supId => {
-                        //                 return matchedProduct.supplements.filter(sup => sup.id === supId)[0]
-                        //             }) : []
-                        //         }))
-                        //         handleAddedPopup(matchedProduct.title, matchedProduct.weight)
-                        //
-                        //     }
-                        // } else {
-                        //     const matchedCombo = products.combos.filter(item => item.id == productAfterLogin.id)[0]
-                        //     if (matchedCombo?.id !== undefined) {
-                        //         dispatch(addToCartCombo({
-                        //             combo: [
-                        //                 {
-                        //                     count: 1,
-                        //                     id: matchedCombo.id,
-                        //                     selected_product: productAfterLogin.selected_product || 1
-                        //
-                        //                 }
-                        //             ],
-                        //             combo_prod: {
-                        //                 ...matchedCombo
-                        //             },
-                        //
-                        //
-                        //         }))
-                        //         handleAddedPopup(matchedCombo.title, matchedCombo.weight)
-                        //     }
-                        // }
-
                         dispatch(handleLogin())
                     } else {
                         dispatch(handleLogin())
@@ -169,12 +128,14 @@ const LoginCodeStep = () => {
         })()
 
     }, [code])
+
     useEffect(() => {
         if (codeBlockRef.current) {
             const firstInput = codeBlockRef.current.children[0].children[0] as HTMLInputElement
             firstInput.focus()
         }
     }, [])
+
     return (
         <div className="gap-30 f-column">
             <div className="f-column gap-10">
@@ -187,9 +148,7 @@ const LoginCodeStep = () => {
                         <b>{phone}</b>
                         <b onClick={() => setLoginStep(0)} className={`${styles.changePhone} ${gTheme("lt-active-c", "dk-active-c")}`}>Изменить</b>
                     </div>
-
                 </div>
-
             </div>
             <div className="f-column gap-20">
                 <div className="f-column al-center gap-5">
@@ -204,8 +163,6 @@ const LoginCodeStep = () => {
                                         type="number" /></GrayBorderedBlock>
                             ))
                         }
-
-
                     </div>
                     {
                         codeLoading ?

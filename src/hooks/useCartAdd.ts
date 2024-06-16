@@ -1,7 +1,7 @@
 import {
     cartAddedClose,
     cartAddedOpen,
-    resetCartAddedPopupInfo,
+
     setCartAddedPopupInfo
 } from "../features/cart/cartSlice";
 import {useAppDispatch} from "../app/hooks";
@@ -18,9 +18,6 @@ const UseCartAdd = () => {
 
         setTimeout(() => {
             dispatch(cartAddedClose())
-            // setTimeout(() => {
-            //     dispatch(resetCartAddedPopupInfo())
-            // }, 300)
         }, 2000)
     }
     return handleOpenAddedPopup

@@ -1,16 +1,11 @@
-import React, { FC, useDeferredValue, useEffect, useRef, useState } from 'react';
-import { Link } from "react-router-dom";
+import { FC, useDeferredValue, useEffect, useRef, useState } from 'react';
 import { ArrowMiniRightIcon, Geo } from "../../icons";
 import styles from './main.module.scss'
-import { getImgPath } from "../../utils/common/getAssetsPath";
 import GrayBorderedBlock from "../../components/GrayBorderedBlock";
-import GradientGrayBtn from "../../components/Buttons/GradientGrayButton";
 import SearchInput from "../../components/Inputs/SearchInput";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { handleBooking } from "../../features/modals/modalsSlice";
+
 import { getUser } from "../../features/profile/profileSlice";
 import useAuth from "../../hooks/useAuth";
 import useToken from "../../hooks/useToken";
@@ -19,12 +14,14 @@ import { useInput } from "../../hooks/useInput";
 import Catalog from "../../components/Catalog";
 import Combo from "../../components/Catalog/Combo";
 import { Link as ScrollLink } from "react-scroll"
-import BookingWindow from '../../components/Windows/Booking';
 import useTheme from '../../hooks/useTheme';
 import Sales from '../../components/Sales';
 
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 const Main: FC = () => {
-    const { categories, products, main, modals } = useAppSelector(state => state)
+    const { categories, products } = useAppSelector(state => state)
     const is_auth = useAuth()
     const token = useToken()
 
@@ -81,39 +78,12 @@ const Main: FC = () => {
                         <div className="wrapper w-100p">
                             <div className={`${styles.restaurants} d-f jc-between gap-30`}>
                                 <div className="left d-f gap-30">
-                                    {/* {
-                                        main.isMobile ? null :
-                                            <Link to={"/restaurants"}>
-                                                <GradientGrayBtn
-                                                    className={`${styles.btn} cur-pointer d-f al-center gap-10`}>
-                                                    <Geo stroke={main.isDarkTheme ? "white" : "black"} />
-                                                    <p>Рестораны на карте</p>
-                                                </GradientGrayBtn>
-                                            </Link>
-                                    } */}
-
                                     <SearchInput
                                         value={searchVal}
                                         changeVal={changeSearchVal}
                                         setVal={setSearchVal}
                                         className={styles.search} />
                                 </div>
-                                {/* <div className={`${styles.orderTrigger} f-1  p-rel`}>
-                                    <div className="p-abs w-100p h-100p top-0 left-0 d-f jc-center">
-                                        <div className={`${styles.backgrounds} p-rel f-row-betw h-100p`}>
-                                            <img className={"h-100p"} src={getImgPath("pelmeni.png")} alt="" />
-                                            <img className={"h-100p"} src={getImgPath("vilki.png")} alt="" />
-                                        </div>
-                                    </div>
-
-                                    <div onClick={() => dispatch(handleBooking())}
-                                        className="w-100p f-c-row p-rel h-100p">
-                                        <div className={`${styles.text} f-column`}>
-                                            <p>Забронируйте</p>
-                                            <p>у нас столик!</p>
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
 
@@ -229,7 +199,6 @@ const Main: FC = () => {
                     </div>
                 </div>
             </div>
-            {/* {modals.bookingOpened ? <BookingWindow /> : null} */}
         </>
 
     );

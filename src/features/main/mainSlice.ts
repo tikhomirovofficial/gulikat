@@ -103,7 +103,7 @@ const initialState: MainSliceState = {
     addressFromLoading: false,
     darkAppColor: "#F8CAA9",
     isDarkTheme: !true,
-    phone: "+78005002797",
+    phone: "+79211400023",
     cities: [],
     changingGeo: false,
     addresses: [],

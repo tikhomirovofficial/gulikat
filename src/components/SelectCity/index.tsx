@@ -26,6 +26,7 @@ const SelectCity: FC<HasClassName & SelectCityProps> = ({ className, askGeoPopup
     const { cities, currentGeo, changingGeo, askCityVisible, isDarkTheme, isMobile } = useAppSelector(state => state.main)
     const handleChangingGeo = () => dispatch(toggleChangingGeo())
     const gTheme = useTheme()
+
     const handleAskCity = () => {
         dispatch(toggleAskCityVisible())
         addToStorage("city_accepted", currentGeo.city)
@@ -37,7 +38,6 @@ const SelectCity: FC<HasClassName & SelectCityProps> = ({ className, askGeoPopup
     }
 
     const selectCity = (cityId: number) => {
-
         dispatch(setOrderForm({
             address: "", restaurant: -1,
             addressId: -1
@@ -98,10 +98,7 @@ const SelectCity: FC<HasClassName & SelectCityProps> = ({ className, askGeoPopup
                             } />
                         : null
                 }
-
-
             </div>
-
         </div>
     );
 };

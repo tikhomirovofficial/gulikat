@@ -1,9 +1,8 @@
-import React from 'react';
 import styles from "../../pages/Main/main.module.scss";
 import {useAppSelector} from "../../app/hooks";
 
 const AddedPopup = () => {
-    const {totalPrice, cartClassOpened, cartAdded, cartAddedPopupInfo} = useAppSelector(state => state.cart)
+    const {cartClassOpened, cartAdded, cartAddedPopupInfo} = useAppSelector(state => state.cart)
     if(!cartAdded) {
         return null
     }

@@ -78,10 +78,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
-
         dispatch(getHistoryOrders())
-
-
         const handleHashChange = () => {
             const hash = window.location.hash;
             if (hash) {
@@ -91,13 +88,13 @@ const Profile = () => {
                 }
             }
         };
-
         window.addEventListener('hashchange', handleHashChange);
         handleHashChange();
         return () => {
             window.removeEventListener('hashchange', handleHashChange);
         };
     }, [])
+    
     return (
         <>
             <div className={styles.profile}>

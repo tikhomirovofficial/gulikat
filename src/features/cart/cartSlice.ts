@@ -2,21 +2,16 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
     AddToCartComboRequest,
     AddToCartComboResponse,
-    AddToCartRequest,
-    AddToCartResponse,
     CartCountSupplementsRequest,
     CartCountSupplementsResponse,
-    CartProductItem,
     CartResetResponse,
     EditCartComboRequest,
     EditCartComboResponse,
-    GetCartResponse,
-    ProductRes
+
 } from "../../types/api/api.types";
 import { AxiosResponse } from "axios";
 import { handleTokenRefreshedRequest } from "../../utils/auth/handleThunkAuth";
 import { CartApi } from "../../http/api/cart.api";
-import { N_ProductApi } from "../../types/products.types";
 import { ChangeCountCartRequest, ChangeCountCartResponse, CartProductDeleteRequest, N_AddToCartProductRequest, N_AddToCartProductResponse, N_CartProduct, N_GetCartProductResponse, N_GetCartProductRequest, CartProductDeleteResponse } from "../../types/api/cart.api.types";
 
 
@@ -173,45 +168,11 @@ export const CartSlice = createSlice({
             ]
         },
         plusProduct: (state, action: PayloadAction<number>) => {
-            // state.items = state.items.map(item => {
-            //     if (item.product.id == action.payload) {
-
-            //         return {
-            //             ...item,
-            //             count: item.count + 1
-            //         }
-            //     }
-            //     return item
-            // })
 
         },
         minusProduct: (state, action: PayloadAction<number>) => {
-            // const productToMinus = state.items.find(item => item.id === action.payload);
-
-            // if (productToMinus) {
-            //     if (productToMinus.count > 1) {
-            //         state.items = state.items.map(item => {
-            //             if (item.id == action.payload) {
-            //                 return {
-            //                     ...item,
-            //                     count: item.count - 1
-            //                 }
-            //             }
-            //             return item
-            //         })
-            //     }
-            // }
-
         },
         removeProduct: (state, action: PayloadAction<number>) => {
-            // const productToRemove = state.items.find(item => item.product.id === action.payload);
-
-            // if (productToRemove) {
-            //     const totalThisPrice = productToRemove.count * productToRemove.product.price;
-            //     state.totalPrice -= totalThisPrice;
-            // }
-
-            // state.items = state.items.filter(item => item.product.id !== action.payload);
 
         },
         setTotalPrice: (state, action: PayloadAction<number>) => {
@@ -241,30 +202,7 @@ export const CartSlice = createSlice({
         })
 
         builder.addCase(addToCart.fulfilled, (state, action) => {
-            // const product = action.payload.product
-            // const res = action.payload.data
             if (action.payload) {
-                // const newState = [
-                //     ...state.items,
-                //     {
-                //         is_combo: false,
-                //         id: res.list_id[0],
-                //         product: {
-
-                //             composition: product.composition,
-                //             id: product.id,
-                //             title: product.title,
-                //             image: product.image,
-                //             dimensions: product.dimensions,
-                //             is_discount: product.is_discount,
-                //             price_discount: ~~(product.price_discount || 0),
-                //             price: product.price,
-                //             short_description: product.short_description,
-                //         },
-                //         supplements: product.supplements,
-                //         count: 1
-                //     }
-                // ]
                 state.totalPrice = action.payload.price
                 state.totalDiscountPrice = action.payload.price_discount
                 state.items = [
@@ -277,88 +215,21 @@ export const CartSlice = createSlice({
                 ]
             }
         })
-        // builder.addCase(addToCartCombo.fulfilled, (state, action) => {
-        //     const comboRes = action.payload.data
-        //     const comboProduct = action.payload.combo_prod
-        //     const comboFromReq = action.payload.combo[0]
-        //     const selectedProductId = comboFromReq.selected_product
-        //     const compositionFromProds = comboProduct.products?.map(item => item.title).join(', ') || ""
-
-        //     const newState: CartProductItem[] = [
-        //         ...state.items,
-        //         // {
-        //         //     count: 1,
-        //         //     id: comboRes.list_id[0],
-        //         //     is_combo: true,
-        //         //     product: {
-        //         //         composition: compositionFromProds,
-        //         //         dimensions: "г",
-        //         //         drinks: comboProduct.drinks,
-        //         //         id: comboProduct.id,
-        //         //         image: comboProduct.image,
-        //         //         price: comboProduct.price,
-        //         //         products: comboProduct.products,
-        //         //         selected_product: {
-        //         //             id: selectedProductId,
-        //         //             title: comboProduct.drinks?.filter(item => item.id === selectedProductId)[0].title || ""
-        //         //         },
-        //         //         short_description: "",
-        //         //         title: comboProduct.title
-
-        //         //     },
-        //         //     supplements: []
-        //         // }
-        //     ]
-        //     state.items = [
-        //         ...state.items
-        //     ]
-        // })
-        // builder.addCase(editCartCombo.fulfilled, (state, action) => {
-        //     const editedCombo = action.payload.data.product[0]
-        //     state.items = state.items.map(item => {
-        //         if (item.id === editedCombo.id && item.is_combo) {
-        //             return editedCombo
-        //         }
-        //         return item
-        //     })
-        // })
 
         builder.addCase(editCountCart.fulfilled, (state, action) => {
             if (action.payload) {
                 const newState = state.items.map(item => {
-
-                    //console.log(item.id, action.payload.cart_id);
                     if (item.id === action.payload.cart_id) {
-
                         item.count = action.payload.count
-                        //alert(`${action.payload.cart_id}`)
                         return item
                     }
                     return item
                 })
-                //console.log("prev", state.items);
-                //console.log("next", newState);
-
                 state.totalPrice = action.payload.price
                 state.totalDiscountPrice = action.payload.price_discount
                 state.items = newState
-
             }
-
         })
-
-        // builder.addCase(editSupplementsCountCart.fulfilled, (state, action) => {
-        //     state.items = state.items.map(cartItem => {
-        //         if (action.payload.cart_id === cartItem.id) {
-        //             return {
-        //                 ...cartItem,
-        //                 supplements: action.payload.supplements_list
-        //             }
-        //         }
-        //         return cartItem
-        //     })
-
-        // })
 
         builder.addCase(removeFromCart.fulfilled, (state, action) => {
             state.items = state.items.filter(item => item.id !== action.payload.cart_id)

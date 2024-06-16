@@ -14,7 +14,7 @@ type CartAdditiveItemProps = Supplement & {
     count: number,
     inCart: boolean
 }
-const CartAdditiveItem: FC<CartAdditiveItemProps> = ({ id, price, inCart, short_description, title, count, image }) => {
+const CartAdditiveItem: FC<CartAdditiveItemProps> = ({ id, price, inCart, title, count, image }) => {
     const dispatch = useAppDispatch()
     const gTheme = useTheme()
 

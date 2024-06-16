@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
-import { Supplement } from "../../types/api/api.types";
 import styles from "../../pages/Order/order.module.scss";
 import { domain } from "../../http/instance/instances";
 import { formatNumberWithSpaces } from "../../utils/common/numberWithSpaces";
 import useTheme from '../../hooks/useTheme';
-import { N_CartProduct } from '../../types/api/cart.api.types';
 import { HasID } from '../../types/common.types';
 
 type OrderItemProps = {
@@ -17,14 +15,12 @@ type OrderItemProps = {
     count: number
     discount_procent: number
 } & HasID
+
 const OrderItem: FC<OrderItemProps> = (props) => {
-    // const additivePrice = supplements.length > 0 ? supplements.reduce((a, b) => {
-    //     return a + b.price
-    // }, 0) : 0
+
     const additivePrice = 0
     const gTheme = useTheme()
     const hasDiscount =  props.discount_procent > 0
-    //discount_procent image, title, count, description, 
 
     return (
         <div className={`${styles.part} ${styles.product} pd-15 d-f gap-10`}>
@@ -35,12 +31,6 @@ const OrderItem: FC<OrderItemProps> = (props) => {
                     <div className="d-f gap-10">
                         <h4>{props.title} × {props.count}</h4>
                     </div>
-                    {/* <p>{props.product.description}</p> */}
-                    {/* {
-                        supplements.length > 0 ?
-                            <p>+ {supplements.map(item => item.title).join(", ")}</p>
-                            : null
-                    } */}
                 </div>
                 <div className="d-f al-end gap-10">
                     {

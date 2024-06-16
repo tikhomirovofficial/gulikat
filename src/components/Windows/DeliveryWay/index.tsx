@@ -3,26 +3,23 @@ import WindowBody from "../WhiteWrapper";
 import { CloseIcon, Geo } from "../../../icons";
 import RedButton from "../../Buttons/RedButton";
 import ShadowWrapper from "../ShadowWrapper";
-import styles from './deliveryWay.module.scss'
-import Switcher from "../../Switcher";
+import styles from './deliveryWay.module.scss';
 import InputWrapper from "../../Inputs/InputWrapper";
 import { Map, Placemark, YMaps } from "@pbe/react-yandex-maps";
 import GrayBorderedBlock from "../../GrayBorderedBlock";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
-    handleDeliveryVariant,
     handleDeliveryWayWindow,
     setAddressSuccess,
     setAddressSuccessTitle
 } from "../../../features/modals/modalsSlice";
 import { handleSelectAddressId, handleSelectRestaurant } from "../../../features/forms/formsSlice";
-import { addToCart, addToCartCombo, setProductAfterAddress } from "../../../features/cart/cartSlice";
+import { addToCart, setProductAfterAddress } from "../../../features/cart/cartSlice";
 import { setSelectedInDelivery, setSelectedInPickup } from "../../../features/restaurants/restaurantsSlice";
 import { addAddressUser } from "../../../features/profile/profileSlice";
-import { AddressByCityItem, AddressByMarketCity } from "../../../types/api/api.types";
+import { AddressByCityItem } from "../../../types/api/api.types";
 import { deleteSeconds } from "../../../utils/datetime/deleteSecondsInTime";
 import useCartAdd from "../../../hooks/useCartAdd";
-import useMarketLogo from "../../../hooks/useMarketLogo";
 import useNewAddress from "../../../hooks/useNewAddress";
 import AddressSuggestions from "../../AddressSuggestions";
 import { getImgPath } from "../../../utils/common/getAssetsPath";
@@ -232,7 +229,7 @@ const AddressProfileVariant: FC<DeliveryWayCommonProps> = ({
 
     const handleAddAddressDelivery = () => {
         dispatch(handleSelectAddressId(selectedInDelivery))
-        addToCartWithAfterClose() // СЕЙЧАС ТУТ ПРОСТО ВЫХОД ИЗ МОДАЛКИ
+        addToCartWithAfterClose()
         if (handleSuccess) {
             handleSuccess("Адрес выбран!")
         }
@@ -295,10 +292,7 @@ const PickupVariant: FC<DeliveryWayCommonProps> = ({ addToCartWithAfterClose, ha
                 <RedButton onClick={handleAddAddressPickup} disabled={selectedInPickup == -1}
                     className={"pd-10-0 w-100p"}>Выбрать</RedButton>
             </div>
-
-
         </>
-
     )
 }
 
@@ -307,14 +301,13 @@ const DeliveryWay = () => {
     const dispatch = useAppDispatch()
     const handleAddedPopup = useCartAdd()
     const { variant } = useAppSelector(state => state.modals.deliveryWay)
-    const { addresses, isPhone, market, cityAddresses, pickupAddresses, canOrder, addressFrom } = useAppSelector(state => state.main)
+    const { isPhone, cityAddresses, addressFrom } = useAppSelector(state => state.main)
     const profileAddresses = useAppSelector(state => state.profile.addresses)
     const { selectedInPickup, selectedInDelivery } = useAppSelector(state => state.restaurants)
     const [currentAddress, setCurrentAddress] = useState<AddressByCityItem | null>(null)
     const [deliveryFromProfile, setDeliveryFromProfile] = useState(profileAddresses.length > 0)
     const [coordsNewAddres, setCoordsNewAddress] = useState([0, 0])
 
-    const logo = useMarketLogo()
     const gTheme = useTheme()
 
     const getCurrentAddress = () => {
@@ -375,41 +368,6 @@ const DeliveryWay = () => {
                 handleAddedPopup(matchedProduct.title, matchedProduct.weight)
             }
         }
-        // if (addProductAfterAddress !== null) {
-        //     if (!addProductAfterAddress.is_combo) {
-        //         const matchedProduct = products.items.filter(item => item.id == addProductAfterAddress.id)[0]
-        //         if (matchedProduct?.id !== undefined) {
-        //             const addProductSups = addProductAfterAddress.supplements
-        //             const addProductSupsDefined = addProductSups !== undefined
-        //             dispatch(addToCart({
-        //                 products_id: matchedProduct.
-        //                 ...matchedProduct,
-        //             }))
-        //             handleAddedPopup(matchedProduct.title, matchedProduct.weight)
-        //         }
-        //     } else {
-        //         const matchedCombo = products.combos.filter(item => item.id == addProductAfterAddress.id)[0]
-        //         if (matchedCombo?.id !== undefined) {
-        //             dispatch(addToCartCombo({
-        //                 combo: [
-        //                     {
-        //                         count: 1,
-        //                         id: matchedCombo.id,
-        //                         selected_product: addProductAfterAddress.selected_product || 1
-
-        //                     }
-        //                 ],
-        //                 combo_prod: {
-        //                     ...matchedCombo
-        //                 },
-
-
-        //             }))
-        //             handleAddedPopup(matchedCombo.title, matchedCombo.weight)
-        //             dispatch(setAddressSuccess(true))
-        //         }
-        //     }
-        // }
         dispatch(setProductAfterAddress(null))
         dispatch(handleDeliveryWayWindow())
     }
@@ -420,10 +378,6 @@ const DeliveryWay = () => {
 
     const closeDeliveryWay = () => {
         dispatch(handleDeliveryWayWindow())
-        dispatch(setSelectedInPickup(-1))
-    }
-    const handleDeliveryWay = (index: number) => {
-        dispatch(handleDeliveryVariant(index))
         dispatch(setSelectedInPickup(-1))
     }
 
@@ -445,10 +399,6 @@ const DeliveryWay = () => {
                             }
 
                         </div>
-
-                        {/* <Switcher onSwitch={handleDeliveryWay} currentSelected={variant}
-                            elements={["Доставка", "Самовывоз"]} /> */}
-
                     </div>
                     {isPhone ? <div className={styles.map}>
                         <YMaps>
@@ -462,7 +412,7 @@ const DeliveryWay = () => {
                                         <Placemark geometry={[currentAddress.long, currentAddress.lat]} options={
                                             {
                                                 iconLayout: 'default#image', // Используем стандартный макет изображения
-                                                iconImageHref: logo, // Укажите URL вашей кастомной иконки
+                                                iconImageHref: getImgPath("geo.svg"),
                                                 iconImageSize: [52, 52], // Размер вашей иконки
                                                 iconImageOffset: [-26, -52],
                                             }
@@ -471,20 +421,17 @@ const DeliveryWay = () => {
                                         !variant && mapCenterCoords !== undefined ? <Placemark geometry={[mapCenterCoords[0], mapCenterCoords[1]]} options={
                                             {
                                                 iconLayout: 'default#image',
-                                                iconImageHref: getImgPath("geo.svg"),// Используем стандартный макет изображенияУкажите URL вашей кастомной иконки
+                                                iconImageHref: getImgPath("geo.svg"), // Используем стандартный макет изображенияУкажите URL вашей кастомной иконки
                                                 iconImageSize: [30, 46], // Размер вашей иконки
                                                 iconImageOffset: [-15, -46],
                                             }
                                         } /> : null
-
                                 }
-
                             </Map>
                         </YMaps>
-                    </div> : null
-
+                    </div>
+                        : null
                     }
-
                     {
                         !variant ?
                             !deliveryFromProfile ?
@@ -493,9 +440,7 @@ const DeliveryWay = () => {
                                     handleIsSelectingAddress={handleAddressFromProfile}
                                     addToCartWithAfterClose={addToCartWithClose} /> :
                             <PickupVariant handleSuccess={handleSuccess} addToCartWithAfterClose={addToCartWithClose} />
-
                     }
-
                 </div>
                 {
                     !isPhone ?
@@ -511,7 +456,7 @@ const DeliveryWay = () => {
                                             <Placemark geometry={[currentAddress.long, currentAddress.lat]} options={
                                                 {
                                                     iconLayout: 'default#image', // Используем стандартный макет изображения
-                                                    iconImageHref: logo, // Укажите URL вашей кастомной иконки
+                                                    iconImageHref: getImgPath("geo.svg"),
                                                     iconImageSize: [52, 52], // Размер вашей иконки
                                                     iconImageOffset: [-26, -52],
                                                 }
